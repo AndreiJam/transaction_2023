@@ -41,14 +41,17 @@ class TransactionStream {
     transactionsHeap: MinHeap;
 
     handleTransaction(transaction: AuthTransaction | CaptureTransaction) {
+        console.log('-------');
         const curTime = Date.now();
         this.updatePQ(curTime);
         if (transaction.type === TransactionType.Auth) {
+            console.log('Auth transaction added', JSON.stringify(transaction));
             if (this.balance >= transaction.amount) {
                 this.balance = this.balance - transaction.amount;
                 this.transactionsHeap.insert(transaction as AuthTransaction);
             }
         } else {
+            console.log('Capture transaction added', JSON.stringify(transaction));
             const authTransaction = this.transactionsHeap.getById((transaction as CaptureTransaction).connectedTransactionId);
             if (authTransaction) {
                 authTransaction.amount = authTransaction.amount - transaction.amount;
@@ -70,7 +73,8 @@ class TransactionStream {
     }
 
     log() {
-        console.log(this.balance, this.transactionsHeap.data.map(d => JSON.stringify(d)));
+        console.log('Balance', this.balance);
+        console.log('Heap:', this.transactionsHeap.data.map(d => JSON.stringify(d)));
     }
 }
 
