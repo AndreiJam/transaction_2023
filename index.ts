@@ -32,8 +32,8 @@ class CaptureTransaction extends Transaction {
 }
 
 class TransactionStream {
-    constructor() {
-        this.balance = 2000;
+    constructor(initBalance: number = 2000) {
+        this.balance = initBalance;
         this.transactionsHeap = new MinHeap('expiration');
     }
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "booking_2_2023.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node dist/index.js",
     "prestart": "npm run build",
     "build": "tsc"
   },
